@@ -35,30 +35,26 @@ def collect_n50_stats(scaffold_lengths):
     all_len = sorted(scaffold_lengths, reverse=True)
     csum = cumulative_sum(all_len)
 
-    print("N: %d" % int(sum(scaffold_lengths)))
-    halfway_point = (sum(scaffold_lengths) // 2)
+    assembly_size = sum(scaffold_lengths)
+    print("N: %d" % int(assembly_size))
+    halfway_point = (assembly_size // 2)
 
     # get index for cumsum >= N/2
-    ind = 0
     for i, x in enumerate(csum):
         if x >= halfway_point:
-            ind = i
+            stats['N50'] = all_len[i]
+            print("N50: %s" % stats['N50'])
             break
-    # ind = numpy.where(csum == csumn2)
-
-    stats['N50'] = all_len[ind]
-    print("N50: %s" % stats['N50'])
 
     # N90
-    stats['nx90'] = int(sum(scaffold_lengths) * 0.90)
+    stats['nx90'] = int(assembly_size * 0.90)
 
     # index for csumsum >= 0.9*N
-    csumn90 = min(csum[csum >= stats['nx90']])
-    ind90 = csum.index(csumn90)
-    # ind90 = numpy.where(csum == csumn90)
-
-    stats['N90'] = all_len[ind90]
-    print("N90: %s" % stats['N90'])
+    for i, x in enumerate(csum):
+        if x >= stats['nx90']:
+            stats['N90'] = all_len[i]
+            print("N90: %s" % stats['N90'])
+            break
 
     return stats
 
