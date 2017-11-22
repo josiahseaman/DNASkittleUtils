@@ -70,4 +70,4 @@ if __name__ == '__main__':
     lengths = scaffold_lengths_from_fasta(input_fasta_name)
     assembly_stats = collect_n50_stats(lengths)
     for key in assembly_stats:
-        print(key, assembly_stats[key])
+        print(key, "{:,}".format(assembly_stats[key]))
