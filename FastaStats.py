@@ -10,7 +10,6 @@
 # N50 = contig length so that half of the contigs are longer and 1/2 of contigs are shorter
 from __future__ import print_function, division
 import sys
-from itertools import groupby
 
 from Contigs import read_contigs
 

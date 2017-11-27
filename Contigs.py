@@ -1,3 +1,5 @@
+from __future__ import print_function, division, absolute_import, with_statement
+
 class Contig:
     def __init__(self, name, seq):
         self.name = name
