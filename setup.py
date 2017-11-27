@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='DNASkittleUtils',
-    version='0.1',
+    version='1.0.0',
     description='Bioinformatics functions that have been useful in multiple projects.  Manipulating FASTA files, executing pipelines, etc.',
     author='Josiah Seaman',
     author_email='josiah.seaman@gmail.com',

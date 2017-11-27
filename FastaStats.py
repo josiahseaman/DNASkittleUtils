@@ -5,6 +5,8 @@
 # on gist https://gist.github.com/dinovski/2bcdcc770d5388c6fcc8a656e5dbe53c
 # Dina's code looked like the best way to computer N50 (which is surprisingly not in a library
 # anywhere).  I've modified the code to serve as a module inside DDV.
+#
+# The code was further modified to remove a numpy dependency and keep it lightweight.
 
 # calculate N50 from fasta file
 # N50 = contig length so that half of the contigs are longer and 1/2 of contigs are shorter
