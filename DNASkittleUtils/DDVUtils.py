@@ -1,12 +1,13 @@
 from __future__ import print_function, division, absolute_import, with_statement
-import os
-import shutil
-import re as regex
-import textwrap
-from collections import namedtuple
-from array import array
 
-from CommandLineUtils import just_the_name
+import os
+import re as regex
+import shutil
+import textwrap
+from array import array
+from collections import namedtuple
+
+from DNASkittleUtils.CommandLineUtils import just_the_name
 
 Batch = namedtuple('Batch', ['chr', 'fastas', 'output_folder'])
 nucleotide_complements = {'A': 'T', 'G': 'C', 'T': 'A', 'C': 'G', 'N': 'N', 'X': 'X'}
