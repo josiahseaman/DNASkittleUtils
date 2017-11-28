@@ -18,15 +18,34 @@ def log_command(args):
     return command
 
 
-def call_output(args):
-    command = log_command(args)
-    return subprocess.check_output(command, shell=True)
+def __getstatusoutput__(cmd):
+    """    This is a copy of the 3.0 code as a backup for 2.7 """
+    try:
+        data = subprocess.check_output(cmd, shell=True,
+                                       universal_newlines=True,
+                                       stderr=subprocess.STDOUT)
+        status = 0
+    except subprocess.CalledProcessError as ex:
+        data = ex.output
+        status = ex.returncode
+    if data[-1:] == '\n':
+        data = data[:-1]
+    return status, data
 
 
 def call(args):
     command = log_command(args)
-    return subprocess.call(command, shell=True)
-    # TODO: add error handling for bad return code
+    if hasattr(subprocess, 'getstatusoutput'):
+        (status, output) = subprocess.getstatusoutput(command)
+    else:
+        (status, output) = __getstatusoutput__(command)
+    if output:
+        print(output)
+    with open(log_file_name, 'a') as log:
+        log.write(output + '\n')
+    if status != 0:
+        raise subprocess.CalledProcessError(status, command, output=output)
+    return output
 
 
 def remove_extensions(path):
