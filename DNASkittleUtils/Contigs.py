@@ -89,8 +89,10 @@ def write_contigs_to_file(out_filename, contigs):
     with open(out_filename, 'w') as outfile:
         for contig in contigs:
             __do_write(outfile, header='>' + contig.name, seq=contig.seq)
-    print("Done writing ", len(contigs), "contigs and {:,}bp".format(sum([len(x.seq) for x in contigs])))
-
+    if hasattr(contigs, '__len__'):  # in case of iterator e.g. itertools.chain()
+        print("Done writing ", len(contigs), "contigs and {:,}bp".format(sum([len(x.seq) for x in contigs])))
+    else:
+        print("Done writing {:,}bp".format(sum([len(x.seq) for x in contigs])))
 
 def pluck_contig(chromosome_name, genome_source):
     """Scan through a genome fasta file looking for a matching contig name.  When it find it, find_contig collects

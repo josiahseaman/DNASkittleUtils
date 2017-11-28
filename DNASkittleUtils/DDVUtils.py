@@ -1,13 +1,9 @@
 from __future__ import print_function, division, absolute_import, with_statement
 
 import os
-import re as regex
 import shutil
-import textwrap
-from array import array
 from collections import namedtuple
 
-from DNASkittleUtils.CommandLineUtils import just_the_name
 
 Batch = namedtuple('Batch', ['chr', 'fastas', 'output_folder'])
 nucleotide_complements = {'A': 'T', 'G': 'C', 'T': 'A', 'C': 'G', 'N': 'N', 'X': 'X'}
@@ -44,21 +40,18 @@ class ReverseComplement:
         return 0
 
 
-def pretty_contig_name(contig, title_width, title_lines):
-    """Since textwrap.wrap break on whitespace, it's important to make sure there's whitespace
-    where there should be.  Contig names don't tend to be pretty."""
-    pretty_name = contig.name.replace('_', ' ').replace('|', ' ').replace('chromosome chromosome',
-                                                                          'chromosome')
-    pretty_name = regex.sub(r'([^:]*\S):(\S[^:]*)', r'\1: \2', pretty_name)
-    pretty_name = regex.sub(r'([^:]*\S):(\S[^:]*)', r'\1: \2', pretty_name)  # don't ask
-    if title_width < 20 and len(
-            pretty_name) > title_width * 1.5:  # this is a suboptimal special case to try and
-        # cram more characters onto the two lines of the smallest contig titles when there's not enough space
-        # For small spaces, cram every last bit into the line labels, there's not much room
-        pretty_name = pretty_name[:title_width] + '\n' + pretty_name[title_width:title_width * 2]
-    else:  # this is the only case that correctly bottom justifies one line titles
-        pretty_name = '\n'.join(textwrap.wrap(pretty_name, title_width)[:title_lines])  # approximate width
-    return pretty_name
+def pp(variable):
+    """Short method for formatting output in the way I like it using duck typing"""
+    rep = variable
+    if isinstance(variable, int):
+        rep = '{:,}'.format(variable)
+    elif isinstance(variable, float):
+        if 2.0 > variable > .00001:
+            rep = '{:%}'.format(variable)
+        elif variable > 2.0:
+            rep = '{:.3}'.format(variable)
+    print(rep)
+    return rep
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
