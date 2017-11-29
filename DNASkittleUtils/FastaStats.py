@@ -13,7 +13,7 @@
 from __future__ import print_function, division
 import sys
 
-from Contigs import read_contigs
+from DNASkittleUtils.Contigs import read_contigs
 
 
 def cumulative_sum(numbers_list):
@@ -37,14 +37,12 @@ def collect_n50_stats(scaffold_lengths):
     csum = cumulative_sum(all_len)
 
     assembly_size = sum(scaffold_lengths)
-    print("N: %d" % int(assembly_size))
     halfway_point = (assembly_size // 2)
 
     # get index for cumsum >= N/2
     for i, x in enumerate(csum):
         if x >= halfway_point:
             stats['N50'] = all_len[i]
-            print("N50: %s" % stats['N50'])
             break
 
     # N90
@@ -54,7 +52,6 @@ def collect_n50_stats(scaffold_lengths):
     for i, x in enumerate(csum):
         if x >= stats['nx90']:
             stats['N90'] = all_len[i]
-            print("N90: %s" % stats['N90'])
             break
 
     return stats
@@ -66,9 +63,13 @@ def scaffold_lengths_from_fasta(input_fasta_path):
     return lengths
 
 
+def all_stats(input_fasta):
+    lengths = scaffold_lengths_from_fasta(input_fasta)
+    return collect_n50_stats(lengths)
+
+
 if __name__ == '__main__':
     input_fasta_name= sys.argv[1]
-    lengths = scaffold_lengths_from_fasta(input_fasta_name)
-    assembly_stats = collect_n50_stats(lengths)
+    assembly_stats = all_stats(input_fasta_name)
     for key in assembly_stats:
-        print(key, "{:,}".format(assembly_stats[key]))
+        print(key + ":", "{:,}".format(assembly_stats[key]))
