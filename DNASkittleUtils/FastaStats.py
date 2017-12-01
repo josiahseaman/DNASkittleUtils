@@ -37,6 +37,7 @@ def collect_n50_stats(scaffold_lengths):
     csum = cumulative_sum(all_len)
 
     assembly_size = sum(scaffold_lengths)
+    stats['N'] = int(assembly_size)
     halfway_point = (assembly_size // 2)
 
     # get index for cumsum >= N/2
