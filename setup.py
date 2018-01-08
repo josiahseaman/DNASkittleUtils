@@ -2,12 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name='DNASkittleUtils',
-    version='1.0.4',
+    version='1.0.5',
     description='Bioinformatics functions that have been useful in multiple projects.  Manipulating FASTA files, executing pipelines, etc.',
     author='Josiah Seaman',
     author_email='josiah.seaman@gmail.com',
     license='BSD',
-    packages=find_packages(exclude=('tests', 'example')),  # TODO: revise this line
+    packages=find_packages(exclude=('tests', 'example')),
     include_package_data=True,
     install_requires=[],
     url='https://github.com/josiahseaman/DNASkittleUtils',

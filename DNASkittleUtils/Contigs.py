@@ -54,8 +54,6 @@ def __do_write(filestream, seq, header=None):
 
 
 def _write_fasta_lines(filestream, seq):
-    import _io
-    assert isinstance(filestream, _io.TextIOWrapper)  # I'm actually given a file name and have to open it myself
     contigs = seq.split('\n')
     index = 0
     while index < len(contigs):

@@ -10,7 +10,7 @@
 
 # calculate N50 from fasta file
 # N50 = contig length so that half of the contigs are longer and 1/2 of contigs are shorter
-from __future__ import print_function, division
+from __future__ import print_function, division, absolute_import, with_statement
 import sys
 
 from DNASkittleUtils.Contigs import read_contigs
