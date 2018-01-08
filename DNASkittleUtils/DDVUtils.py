@@ -56,7 +56,12 @@ def pp(variable):
 
 def copytree(src, dst, symlinks=False, ignore=None):
     if not os.path.exists(dst):
-        os.makedirs(dst, exist_ok=True)
+        from os import errno
+        try:
+            os.makedirs(dst)
+        except OSError as e:  # exist_ok=True
+            if e.errno != errno.EEXIST:
+                raise
     for item in os.listdir(src):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
