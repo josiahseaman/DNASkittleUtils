@@ -78,7 +78,7 @@ def write_complete_fasta(file_path, seq_content_array, header=None):
             if isinstance(temp_content, list):
                 seq_content_array = [header]
             else:
-                seq_content_array = array('u', header)
+                seq_content_array = array(temp_content.typecode, header)
             seq_content_array.extend(temp_content)
         _write_fasta_lines(filestream, ''.join(seq_content_array))
 
