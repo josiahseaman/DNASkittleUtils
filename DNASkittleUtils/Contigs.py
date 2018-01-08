@@ -5,7 +5,7 @@ from DNASkittleUtils.CommandLineUtils import just_the_name
 from DNASkittleUtils.DDVUtils import chunks
 
 
-class Contig:
+class Contig(object):
     def __init__(self, name, seq):
         self.name = name
         self.seq = seq
@@ -91,6 +91,7 @@ def write_contigs_to_file(out_filename, contigs):
         print("Done writing ", len(contigs), "contigs and {:,}bp".format(sum([len(x.seq) for x in contigs])))
     else:
         print("Done writing {:,}bp".format(sum([len(x.seq) for x in contigs])))
+
 
 def pluck_contig(chromosome_name, genome_source):
     """Scan through a genome fasta file looking for a matching contig name.  When it find it, find_contig collects

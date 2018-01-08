@@ -17,7 +17,7 @@ def rev_comp(plus_strand):
     return ''.join([nucleotide_complements[a] for a in reversed(plus_strand)])
 
 
-class ReverseComplement:
+class ReverseComplement(object):
     def __init__(self, seq, annotation=False):
         """Lazy generator for being able to pull out small reverse complement
         sections out of large chromosomes"""
@@ -80,7 +80,7 @@ def first_word(string):
     return re.split('[\W_]+', string)[0]
 
 
-class BlankIterator:
+class BlankIterator(object):
     def __init__(self, filler):
         self.filler = filler
 
