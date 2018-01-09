@@ -1,9 +1,10 @@
 from __future__ import print_function, division, absolute_import, with_statement
 
+import sys
 import os
 import shutil
+from array import array
 from collections import namedtuple
-
 
 Batch = namedtuple('Batch', ['chr', 'fastas', 'output_folder'])
 nucleotide_complements = {'A': 'T', 'G': 'C', 'T': 'A', 'C': 'G', 'N': 'N', 'X': 'X'}
@@ -94,3 +95,13 @@ class BlankIterator(object):
             return self.filler * (index.stop - index.start)
         else:
             return self.filler
+
+
+def editable_str(initial_str):# -> array
+    """Exactly the same as array.array except that it switches types based on Python Version:
+    Python 2: character, one byte
+    Python 3: unicode, two to four bytes"""
+    array_type = 'u'
+    if sys.version_info < (3, 0):
+        array_type = 'c'
+    return array(array_type, initial_str)
