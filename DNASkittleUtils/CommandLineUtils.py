@@ -49,9 +49,10 @@ def call(args):
 
 
 def remove_extensions(path):
-    """Remove extension and path"""
-    first_extension = os.path.splitext(path)[0]
-    return os.path.splitext(first_extension)[0]
+    """Remove extension only.  Will also peel off .gz if present"""
+    if path.endswith('.gz'):  # special case because of frequent chr1.fastq.gz etc.
+        path = path[:-3]
+    return os.path.splitext(path)[0]
 
 
 def just_the_name(path):

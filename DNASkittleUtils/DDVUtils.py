@@ -81,8 +81,7 @@ def chunks(seq, size):
 
 def first_word(string):
     import re
-    if '\\' in string:
-        string = string[string.rindex('\\') + 1:]
+    string = os.path.basename(string)
     return re.split('[\W_]+', string)[0]
 
 
