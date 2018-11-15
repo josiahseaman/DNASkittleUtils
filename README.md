@@ -8,3 +8,6 @@ Python 2-3 compatible.  No heavy dependencies.
 * Run command line programs
 * Script tools together 
 
+## Install
+Use pip to install the latest version from this repo:  
+`pip install git+https://github.com/josiahseaman/DNASkittleUtils.git --upgrade`
