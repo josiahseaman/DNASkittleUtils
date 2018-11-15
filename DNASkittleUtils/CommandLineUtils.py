@@ -10,6 +10,12 @@ output_dir = os.getcwd()
 log_file_name = "WHAT_I_DID_" + str(datetime.date.today()) + '.log'
 
 
+def print_if(*args, **kwargs):
+    verbose = kwargs.get('verbose', True)
+    if verbose:
+        print(*args)
+
+
 def log_command(args):
     command = ' '.join(args) if isinstance(args, list) else args
     print(command)
@@ -75,9 +81,9 @@ def delete_file_contents(file_path, scratch_only=False):
         print("ERROR: Not blanking file because it's not in a scratch folder", file_path, file=sys.stderr)
 
 
-def make_output_dir_with_suffix(base_path, suffix):
+def make_output_dir_with_suffix(base_path, suffix, verbose=True):
     output_dir = base_path + suffix
-    print("Creating Directory...", os.path.basename(output_dir))
+    print_if("Creating Directory...", os.path.basename(output_dir), verbose=verbose)
     from os import errno
     try:
         os.makedirs(output_dir)

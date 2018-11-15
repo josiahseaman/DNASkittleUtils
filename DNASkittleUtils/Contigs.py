@@ -1,7 +1,9 @@
 from __future__ import print_function, division, absolute_import, with_statement
 from array import array
 
-from DNASkittleUtils.CommandLineUtils import just_the_name
+import sys
+
+from DNASkittleUtils.CommandLineUtils import just_the_name, print_if
 from DNASkittleUtils.DDVUtils import chunks
 
 
@@ -58,7 +60,7 @@ def _write_fasta_lines(filestream, seq):
     index = 0
     while index < len(contigs):
         if len(contigs) > index + 1 and contigs[index].startswith('>') and contigs[index+1].startswith('>'):
-            print("Warning: Orphaned header:", contigs[index])
+            print("Warning: Orphaned header:", contigs[index], file=sys.stderr)
         if contigs[index].startswith('>'):
             header, contents = contigs[index], contigs[index + 1]
             index += 2
@@ -83,21 +85,23 @@ def write_complete_fasta(file_path, seq_content_array, header=None):
         _write_fasta_lines(filestream, ''.join(seq_content_array))
 
 
-def write_contigs_to_file(out_filename, contigs):
+def write_contigs_to_file(out_filename, contigs, verbose=True):
     with open(out_filename, 'w') as outfile:
         for contig in contigs:
             __do_write(outfile, header='>' + contig.name, seq=contig.seq)
-    if hasattr(contigs, '__len__'):  # in case of iterator e.g. itertools.chain()
-        print("Done writing ", len(contigs), "contigs and {:,}bp".format(sum([len(x.seq) for x in contigs])))
-    else:
-        print("Done writing {:,}bp".format(sum([len(x.seq) for x in contigs])))
+    if verbose:
+        if hasattr(contigs, '__len__'):  # in case of iterator e.g. itertools.chain()
+            print("Done writing ", len(contigs),
+                  "contigs and {:,}bp".format(sum([len(x.seq) for x in contigs])))
+        else:
+            print("Done writing {:,}bp".format(sum([len(x.seq) for x in contigs])))
 
 
-def pluck_contig(chromosome_name, genome_source):
+def pluck_contig(chromosome_name, genome_source, verbose=True):
     """Scan through a genome fasta file looking for a matching contig name.  When it find it, find_contig collects
     the sequence and returns it as a string with no cruft."""
     chromosome_name = '>' + chromosome_name
-    print("Searching for", chromosome_name)
+    print_if("Searching for", chromosome_name, verbose=verbose)
     seq_collection = []
     printing = False
     with open(genome_source, 'r') as genome:
@@ -107,7 +111,7 @@ def pluck_contig(chromosome_name, genome_source):
                 line = line.rstrip()
                 if line.upper() == chromosome_name.upper():
                     printing = True
-                    print("Found", line)
+                    print_if("Found", line, verbose=verbose)
                 elif printing:
                     break  # we've collected all sequence and reached the beginning of the next contig
             elif printing:  # This MUST come after the check for a '>'

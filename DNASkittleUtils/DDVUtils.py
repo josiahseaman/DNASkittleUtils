@@ -51,7 +51,6 @@ def pp(variable):
             rep = '{:%}'.format(variable)
         elif variable > 2.0:
             rep = '{:.3}'.format(variable)
-    print(rep)
     return rep
 
 
