@@ -56,7 +56,7 @@ def pp(variable):
 
 def copytree(src, dst, symlinks=False, ignore=None):
     if not os.path.exists(dst):
-        from os import errno
+        import errno
         try:
             os.makedirs(dst)
         except OSError as e:  # exist_ok=True
@@ -103,3 +103,18 @@ def editable_str(initial_str):# -> array
     if sys.version_info < (3, 0):
         array_type = 'c'
     return array(array_type, initial_str)
+
+
+def first(iterable):
+    if isinstance(iterable, dict):
+        return next(iter(iterable.items()))
+    return next(iter(iterable))
+
+
+class LoopList(list):
+    def __getitem__(self, index):
+        index = index % len(self)
+        return super(LoopList, self).__getitem__(index)
+
+
+

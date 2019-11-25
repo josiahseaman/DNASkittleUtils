@@ -84,7 +84,7 @@ def delete_file_contents(file_path, scratch_only=False):
 def make_output_dir_with_suffix(base_path, suffix, verbose=True):
     output_dir = base_path + suffix
     print_if("Creating Directory...", os.path.basename(output_dir), verbose=verbose)
-    from os import errno
+    import errno
     try:
         os.makedirs(output_dir)
     except OSError as e:  # exist_ok=True

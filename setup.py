@@ -2,21 +2,20 @@ from setuptools import setup, find_packages
 
 setup(
     name='DNASkittleUtils',
-    version='1.0.11',
+    version='1.0.13',
     description='Bioinformatics functions that have been useful in multiple projects.  Manipulating FASTA files, executing pipelines, etc.',
     author='Josiah Seaman',
-    author_email='josiah.seaman@gmail.com',
-    license='BSD',
+    author_email='josiah@newline.us',
     packages=find_packages(exclude=('tests', 'example')),
     include_package_data=True,
     install_requires=[],
     url='https://github.com/josiahseaman/DNASkittleUtils',
-    download_url='https://github.com/josiahseaman/DNASkittleUtils',  # TODO: post a tarball
+    download_url='https://github.com/josiahseaman/DNASkittleUtils',
     keywords=['bioinformatics', 'dna', 'fasta'],
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD',
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
@@ -25,6 +24,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Programming Language :: Python :: 3.7',
+        'Topic :: Scientific/Engineering :: Bio-Informatics',
     ],
 )
